@@ -1,0 +1,33 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product List</title>
+    <link rel="stylesheet" href="/public/css/user/home.css">
+</head>
+<body>
+   <div class="" style="display: flex; justify-content: space-around; width: 100%; align-items: center;">
+    <h1>Product List</h1>
+    <div class="">
+        <button ><a href="/user/logout">Logout</a></button>
+    </div>
+   </div>
+   <div class="" style="display: flex; flex-wrap: wrap; justify-content: center;">
+    <% products.forEach(product => { %>
+        <div class="product-container">
+            <img src="/<%= product.imagePath %>" alt="<%= product.name %> Image">
+            <div class="product-info">
+                <div class="" style="display: flex; justify-content: space-between;">
+                    <h2><%= product.name %></h2>
+                    <h2> $ <%= product.price %></h2>
+                </div>
+                <p><%= product.description %></p>
+            </div>
+        </div>
+    <% }); %>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!-- index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login</title>
+    <link rel="stylesheet" href="/public/css/admin/adminlogin.css">
+</head>
+<body>
+
+    <div class="" style="display: flex; flex-direction: column;">
+        <h2>Admin Login</h2>
+
+    <form id="loginForm" action="/admin/logining" method="post">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <p id="para" style="color: red;"></p>
+        <button type="submit" onclick="blurring(event)">Login</button>
+    </form>
+    </div>
+
+   <script>
+
+    function blurring(e){
+        e.preventDefault()
+        const username=document.getElementById('username').value
+        const password=document.getElementById('password').value
+
+        const JsonBody=JSON.stringify({username,password})
+
+        if(!password && !username)
+        {
+            document.getElementById('para').innerText="fill the blanks";
+        }
+        else{
+            fetch('/admin/logining',{method:"POST",body:JsonBody,headers:{'content-Type':'application/json'}})
+            .then(res=>res.json())
+            .then((data)=>{
+                if(data.status)
+                {
+                    location.href=data.url
+                }
+                else{
+                     document.getElementById('para').innerText=data.message;
+                }
+            })
+        }
+
+        setTimeout(()=>{
+            document.getElementById('para').innerText="";
+        },2000)
+   
+        console.log('blurring function triggered');
+   
+       
+       
+    }
+   </script>
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+

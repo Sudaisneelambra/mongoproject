@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>signUp</title>
+    <link rel="stylesheet" href="/public/css/user/signup.css">
+</head>
+<body>
+    <main class="main" >
+        <div class="maind" style="height: 450px;">
+            <h1>signup</h1>
+            <form action="/user/signup" class="form" method="post">
+               <div class="one">
+                    <label for="">Email :</label>
+                    <input type="email" name="email" id="mail" placeholder="email" onblur="mailvalidation()">
+                    <p style="color: red; margin-top: 0px;" id="error"></p>
+               </div>
+                <div class="one">
+                    <label for="">Password</label>
+                    <input type="password" name="pass" id="pass" placeholder="Password" onblur="passvalidation()">
+                    <p style="margin-top: 0px; color: red;" id="error1"></p>
+                </div>
+
+                <div class="one">
+                    <label for="">Re-Password</label>
+                    <input type="password" name="pass1" id="pass1" placeholder="Password" onfocus="reentering()">
+                    <p style="margin-top: 0px; color: red;" id="error2"></p>
+                </div>
+                <button type="submit" onclick="submitted(event)">Sign Up</button>
+            </form>
+            <div class="para">
+                <p  style="color: red;" id="submission"></p>
+                <p >You have already an account.<a href="/user/login">please login</a></p>
+            </div>
+        </div>
+    </main>
+
+
+
+    <script src="../public/javascript/signup.js"></script>
+</body>
+</html>

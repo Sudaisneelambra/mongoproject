@@ -25,7 +25,7 @@ app.set('view engine','ejs')
 
 // connecting static files
 app.use('/public',express.static('public'))
-app.use('/public', express.static(path.join(__dirname, 'public')));
+// app.use('/public', express.static(path.join(__dirname, 'public')));
 
 
 

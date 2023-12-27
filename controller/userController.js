@@ -6,7 +6,7 @@ const starRound = 10;
 const sess = process.env.SESSION;
 
 const users = require("../model/mongose/mongouser");
-const profile = require("../model/mongose/mongouser");
+const profile = require("../model/mongose/mongoprofile")
 const Product = require("../model/mongose/mongoadmin");
 
 module.exports = {
@@ -20,7 +20,7 @@ module.exports = {
   getHome: async (req, res) => {
     if (req.session.name) {
       try {
-        const products = await profile.find({userD:man});
+        const products = await Product.find();
         res.render("user/home", { products });
       } catch (error) {
         console.error(error);
@@ -50,6 +50,7 @@ module.exports = {
     // const result = await profileModel.insert({place, age, details, _id})
     // userModel.updateOne({_id: sin}, {$set: {profileId: result._id}})
     const userdetails = await profile.findOne({ userD: sin });
+    console.log(userdetails);
     res.render("user/profile", { userdetails });
   },
   getLogout: (req, res) => {
@@ -114,6 +115,9 @@ module.exports = {
         res.send({ status: true, url: "/admin/addProduct" });
       } else if (passMatch) {
         req.session.name = sess;
+        req.session.userId = mailonly._id;
+        console.log(req.session.userId);
+
         res.send({ status: true, url: "/user/home" });
         console.log("nadkkunnu");
       } else {
@@ -127,8 +131,11 @@ module.exports = {
     const { name, address, place, phone, district, state } = req.body;
     const man = req.session.userId;
     const exist = await profile.findOne({ userD: man });
+    const ama=await profile.find()
+    console.log(ama);
 
     if (exist) {
+        console.log("meeesjds");
       await profile.updateOne(
         { userD: man },
         {
@@ -143,6 +150,8 @@ module.exports = {
         }
       );
     } else {
+        console.log("kunjaaneess");
+
         newOne = new profile({
             name: name,
             adrees: address,

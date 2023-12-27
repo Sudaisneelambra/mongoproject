@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 const userDB = mongoose.createConnection(DBU_URL);
 
 
-const profileachema = new mongoose.Schema({
+const profileschema = new mongoose.Schema({
     name: String,
     adrees: String,
     place:String,
@@ -18,5 +18,6 @@ const profileachema = new mongoose.Schema({
     }
   });
 
-  const profile = userDB.model('profile', profileachema);
+  const profile = userDB.model('profile', profileschema);
+
   module.exports=profile

@@ -10,6 +10,8 @@ const adminsess = process.env.SESSION_ADMIN;
 
 const User = require("../model/mongose/mongouser");
 
+const profile = require("../model/mongose/mongoprofile")
+
 const Product = require("../model/mongose/mongoadmin");
 
 module.exports = {
@@ -60,6 +62,7 @@ module.exports = {
     }
   },
   getFindUser: async (req, res) => {
+
     const users = await User.find();
     console.log(users);
 

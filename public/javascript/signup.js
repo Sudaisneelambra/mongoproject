@@ -95,7 +95,7 @@ function submitted(e){
                 if(data.status)
                 {
                     console.log(data.url);
-                    location.href=data.url 
+                    location.href=data.url
                 }else{
                     submission.innerText=data.message
                 }

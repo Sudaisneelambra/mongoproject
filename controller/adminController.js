@@ -63,10 +63,12 @@ module.exports = {
   },
   getFindUser: async (req, res) => {
 
+    const saaaan=await User.aggregate([{$lookup:{from:"profiles",localField:"_id",foreignField:"userD",as:"fulldetails"}}])
+    console.log(saaaan);
     const users = await User.find();
     console.log(users);
 
-    res.render("admin/users", { users });
+    res.render("admin/users", { saaaan });
   },
   postAdminLogin: (req, res) => {
     const user = req.body;

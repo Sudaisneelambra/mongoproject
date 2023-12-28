@@ -47,8 +47,10 @@ module.exports = {
   },
   getProfile: async (req, res) => {
     const sin = req.session.userId;
+
     // const result = await profileModel.insert({place, age, details, _id})
     // userModel.updateOne({_id: sin}, {$set: {profileId: result._id}})
+
     const userdetails = await profile.findOne({ userD: sin });
     console.log(userdetails);
     res.render("user/profile", { userdetails });

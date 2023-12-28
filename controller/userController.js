@@ -127,13 +127,14 @@ module.exports = {
     }
   },
   postprofileSubmit: async (req, res) => {
-    const { name, address, place, phone, district, state } = req.body;
+    const {mail, name, address, place, phone, district, state } = req.body;
+    console.log(req.body);
     const man = req.session.userId;
-    const exist = await profile.findOne({ userD: man });
-    const ama=await profile.find()
-    console.log(ama);
+    // const exist = await profile.findOne({ userD: man });
+    // const ama=await profile.find()
+    // console.log(ama);
 
-    if (exist) {
+    // if (exist) {
         
       await profile.updateOne(
         { userD: man },
@@ -145,24 +146,38 @@ module.exports = {
             phone: phone,
             district: district,
             state: state,
+            userD: man
+          },
+        },{
+            upsert:true
+        }
+      );
+
+      await users.updateOne(
+        { _id: man },
+        {
+          $set: {
+            mail: mail,
           },
         }
       );
-    } else {
+
+
+    // } else {
     
 
-        newOne = new profile({
-            name: name,
-            adrees: address,
-            place: place,
-            phone: phone,
-            district: district,
-            state: state,
-            userD: man,
-          });
+        // newOne = new profile({
+        //     name: name,
+        //     adrees: address,
+        //     place: place,
+        //     phone: phone,
+        //     district: district,
+        //     state: state,
+        //     userD: man,
+        //   });
       
-          await newOne.save();
-    }
+        //   await newOne.save();
+    // }
 
    
     res.redirect("/user/home");

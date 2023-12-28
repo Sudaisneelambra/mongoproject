@@ -53,8 +53,6 @@ module.exports = {
     // const result = await profileModel.insert({place, age, details, _id})
     // userModel.updateOne({_id: sin}, {$set: {profileId: result._id}})
 
-    console.log('love ---------------------------')
-    console.log(love);
 
     res.render("user/profile",{love});
   },

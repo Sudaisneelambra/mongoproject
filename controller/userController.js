@@ -8,6 +8,7 @@ const sess = process.env.SESSION;
 const users = require("../model/mongose/mongouser");
 const profile = require("../model/mongose/mongoprofile")
 const Product = require("../model/mongose/mongoadmin");
+const { default: mongoose } = require("mongoose");
 
 module.exports = {
   getSignup: (req, res) => {
@@ -47,13 +48,15 @@ module.exports = {
   },
   getProfile: async (req, res) => {
     const sin = req.session.userId;
-
+    console.log(sin)
+    let love = await users.aggregate([{$match:{_id: new mongoose.Types.ObjectId(sin)}},{$lookup:{from:"profiles",localField:"_id",foreignField:"userD",as:"fulldetails"}}])
     // const result = await profileModel.insert({place, age, details, _id})
     // userModel.updateOne({_id: sin}, {$set: {profileId: result._id}})
 
-    const userdetails = await profile.findOne({ userD: sin });
-    console.log(userdetails);
-    res.render("user/profile", { userdetails });
+    console.log('love ---------------------------')
+    console.log(love);
+
+    res.render("user/profile",{love});
   },
   getLogout: (req, res) => {
     req.session.destroy((error) => {
@@ -104,10 +107,8 @@ module.exports = {
   },
   postLogin: async (req, res) => {
     const { mail, pass } = req.body;
-    console.log(req.body);
 
     const mailonly = await users.findOne({ mail: mail });
-    console.log(mailonly);
 
     if (mailonly) {
       const passMatch = await bcrypt.compare(pass, mailonly.hashedPassword);
@@ -118,10 +119,8 @@ module.exports = {
       } else if (passMatch) {
         req.session.name = sess;
         req.session.userId = mailonly._id;
-        console.log(req.session.userId);
 
         res.send({ status: true, url: "/user/home" });
-        console.log("nadkkunnu");
       } else {
         res.send({ status: false, message: "incorrect password" });
       }
@@ -137,7 +136,7 @@ module.exports = {
     console.log(ama);
 
     if (exist) {
-        console.log("meeesjds");
+        
       await profile.updateOne(
         { userD: man },
         {
@@ -152,7 +151,7 @@ module.exports = {
         }
       );
     } else {
-        console.log("kunjaaneess");
+    
 
         newOne = new profile({
             name: name,

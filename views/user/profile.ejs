@@ -54,23 +54,27 @@
 <body>
 
     <form action="/user/profileSubmit" method="post">
+
+        <label for="name">Email:</label>
+        <input type="text" id="email" name="email" required value="<%= love[0].mail %>">
+
         <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required value="<%= userdetails?.name %>">
+        <input type="text" id="name" name="name" required value="<%= love[0].fulldetails[0]?.name %>">
 
         <label for="address">Address:</label>
-        <input type="text" id="address" name="address" required value="<%= userdetails?.adrees %>">
+        <input type="text" id="address" name="address" required value="<%= love[0].fulldetails[0]?.adrees %>">
 
         <label for="place">Place:</label>
-        <input type="text" id="place" name="place" required value="<%= userdetails?.place %>">
+        <input type="text" id="place" name="place" required value="<%= love[0].fulldetails[0]?.place %>">
 
         <label for="phone">Phone:</label>
-        <input type="tel" id="phone" name="phone" pattern="[0-9]+" required value="<%= userdetails?.phone %>">
+        <input type="tel" id="phone" name="phone" pattern="[0-9]+" required value="<%= love[0].fulldetails[0]?.phone %>">
 
         <label for="district">District:</label>
-        <input type="text" id="district" name="district" required value="<%= userdetails?.district %>">
+        <input type="text" id="district" name="district" required value="<%= love[0].fulldetails[0]?.district %>">
 
         <label for="state">State:</label>
-        <input type="text" id="state" name="state" required value="<%= userdetails?.state %>">
+        <input type="text" id="state" name="state" required value="<%= love[0].fulldetails[0]?.state %>">
 
         <button type="submit">Submit</button>
         <button><a href="/user/home">back to home</a></button>

@@ -65,8 +65,8 @@ module.exports = {
 
     const saaaan=await User.aggregate([{$lookup:{from:"profiles",localField:"_id",foreignField:"userD",as:"fulldetails"}}])
     console.log(saaaan);
-    const users = await User.find();
-    console.log(users);
+    // const users = await User.find();
+    // console.log(users);
 
     res.render("admin/users", { saaaan });
   },

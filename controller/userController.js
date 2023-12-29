@@ -46,10 +46,14 @@ module.exports = {
       res.render("user/login");
     }
   },
+  getShowProfile:(req,res)=>{
+    
+      res.render("user/showProfile")
+  },
   getProfile: async (req, res) => {
     const sin = req.session.userId;
-    console.log(sin)
     let love = await users.aggregate([{$match:{_id: new mongoose.Types.ObjectId(sin)}},{$lookup:{from:"profiles",localField:"_id",foreignField:"userD",as:"fulldetails"}}])
+
     // const result = await profileModel.insert({place, age, details, _id})
     // userModel.updateOne({_id: sin}, {$set: {profileId: result._id}})
 
@@ -67,16 +71,10 @@ module.exports = {
   },
   postSignup: async (req, res) => {
     const { mail, pass } = req.body;
-    console.log(req.body);
-    console.log(mail);
-    console.log(pass);
 
     const hashedPassword = await bcrypt.hash(pass, starRound);
-    console.log(hashedPassword);
 
     const existingUser = await users.findOne({ mail });
-    console.log(existingUser);
-    console.log(existingUser);
     if (existingUser) {
       console.error("Duplicate email address. Please use a different email.");
       res.send({ status: false, message: "User already exist.please login" }); // Redirect back to the signup page with an error message
@@ -87,9 +85,7 @@ module.exports = {
           hashedPassword,
         });
 
-        console.log(newUser);
         req.session.userId = newUser._id;
-        console.log(req.session.userId);
         await newUser.save();
         console.log("User saved successfully!");
         // Redirect to a new page
@@ -98,7 +94,6 @@ module.exports = {
         res.send({ status: true, url: "/user/home" });
       } catch (error) {
         console.error("Error saving user:", error);
-        console.log("nthokkeyo");
         res.send({ status: false, message: "uncatched error." });
       }
     }
@@ -110,7 +105,6 @@ module.exports = {
 
     if (mailonly) {
       const passMatch = await bcrypt.compare(pass, mailonly.hashedPassword);
-      console.log(passMatch);
       if (passMatch && mailonly.isadmin === "admin") {
         req.session.admissess = adminsess;
         res.send({ status: true, url: "/admin/addProduct" });
@@ -130,11 +124,7 @@ module.exports = {
     const {mail, name, address, place, phone, district, state } = req.body;
     console.log(req.body);
     const man = req.session.userId;
-    // const exist = await profile.findOne({ userD: man });
-    // const ama=await profile.find()
-    // console.log(ama);
-
-    // if (exist) {
+   
         
       await profile.updateOne(
         { userD: man },
@@ -163,21 +153,6 @@ module.exports = {
       );
 
 
-    // } else {
-    
-
-        // newOne = new profile({
-        //     name: name,
-        //     adrees: address,
-        //     place: place,
-        //     phone: phone,
-        //     district: district,
-        //     state: state,
-        //     userD: man,
-        //   });
-      
-        //   await newOne.save();
-    // }
 
    
     res.redirect("/user/home");

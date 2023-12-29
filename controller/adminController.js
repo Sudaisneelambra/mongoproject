@@ -61,16 +61,11 @@ module.exports = {
   getFindUser: async (req, res) => {
 
     const saaaan=await User.aggregate([{$lookup:{from:"profiles",localField:"_id",foreignField:"userD",as:"fulldetails"}}])
-    console.log(saaaan);
-    // const users = await User.find();
-    // console.log(users);
-
+  
     res.render("admin/users", { saaaan });
   },
   postAdminLogin: (req, res) => {
     const user = req.body;
-    console.log(user);
-    console.log(ADMIN_USER, ADMIN_PASS);
     if (user.username === ADMIN_USER && user.password === ADMIN_PASS) {
       req.session.admissess = adminsess;
       res.send({ status: true, url: "/admin/addproduct" });
@@ -84,25 +79,21 @@ module.exports = {
   },
   updattingProduct: async (req, res) => {
     const id = req.params.id;
-    console.log(id);
 
     const { name, description, price } = req.body;
-    console.log(name);
-    console.log(description);
-    console.log(price);
+ 
 
     try {
       if (!req.file) {
         return res.status(400).send("No image uploaded.");
       }
       const imagePath = req.file.path;
-      console.log(imagePath);
       const status = await Product.updateOne(
         { _id: id },
         { $set: { name, description, price, imagePath } }
       );
-      console.log(status);
-      // await newProduct.save();
+  
+    
       res.redirect("/admin/show");
     } catch (error) {
       console.error(error);
@@ -111,7 +102,6 @@ module.exports = {
   },
   getAdminDelete: async (req, res) => {
     const id = req.params.productId;
-    console.log(id);
     await Product.deleteOne({ _id: id });
     res.redirect("/admin/show");
   },

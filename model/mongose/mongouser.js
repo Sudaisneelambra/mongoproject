@@ -7,8 +7,14 @@ const userDB = mongoose.createConnection(DBU_URL);
 
 
 const userSchema = new mongoose.Schema({
-    mail: String,
-    hashedPassword: String,
+    mail: {
+      type: String,
+      required: true
+  },
+    hashedPassword: {
+      type: String,
+      required: true
+  },
     isadmin:{type:String,default:"user"}
   });
 

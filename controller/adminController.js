@@ -17,7 +17,6 @@ const Product = require("../model/mongose/mongoadmin");
 module.exports = {
   getAddProduct: (req, res) => {
     if (req.session.admissess) {
-      console.log(req.session.admissess);
       res.render("admin/addProduct");
     } else {
       res.redirect("/admin/login");
@@ -25,7 +24,6 @@ module.exports = {
   },
   showCollections: async (req, res) => {
     if (req.session.admissess) {
-      console.log(req.session.admissess);
       const products = await Product.find();
       res.render("admin/showCollection", { products });
     } else {
@@ -35,7 +33,6 @@ module.exports = {
   getAdminUpdate: async (req, res) => {
     const PId = req.params.productId;
     const pd = await Product.findById(PId);
-    console.log(pd);
     res.render("admin/updateProduct", { pd });
   },
   postAddProducts: async (req, res) => {

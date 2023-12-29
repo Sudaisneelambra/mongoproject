@@ -6,29 +6,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product List</title>
     <link rel="stylesheet" href="/public/css/user/home.css">
+    <script src="https://kit.fontawesome.com/d6033e8079.js" crossorigin="anonymous"></script>
+   
 </head>
 <body>
-   <div class="" style="display: flex; justify-content: space-around; width: 100%; align-items: center; height: 40px;">
-    <h1>Product List</h1>
-    <div class="" style="display: flex; ">
-        <button ><a href="/user/logout">Logout</a></button>
-        <a href="/user/profile"><img src="/public/uploads/default-profile-account-unknown-icon-black-silhouette-free-vector.jpg" alt="" style="border: 2px solid;width: 40px; height: 40px;"></a>
-    </div>
-   </div>
-   <div class="" style="display: flex; flex-wrap: wrap; justify-content: center;">
-    <% products.forEach(product => { %>
-        <div class="product-container">
-            <img src="/<%= product.imagePath %>" alt="<%= product.name %> Image">
-            <div class="product-info">
-                <div class="" style="display: flex; justify-content: space-between;">
-                    <h2><%= product.name %></h2>
-                    <h2> $ <%= product.price %></h2>
-                </div>
-                <p><%= product.description %></p>
+    <header>
+        <h1>Product List</h1>
+        <nav>
+            <div class="" style="display: flex;">
+                <button><a href="">Home</a></button>
+                <button><a href="">Products</a></button>
+                <button><a href="">Categories</a></button>
             </div>
-        </div>
-    <% }); %>
-</div>
-
+            <div class=""  style="display: flex;">
+                <button><a href="/user/logout">Logout</a></button>
+                <button><a href="/user/profile"><i class="fa-solid fa-user-tie"></i></a></button>
+            </div>
+        </nav>
+    </header>
+    
+    <div style="display: flex; flex-wrap: wrap; justify-content: center;">
+        <% products.forEach(product => { %>
+            <div class="product-container">
+                <img src="/<%= product.imagePath %>" alt="<%= product.name %> Image">
+                <div class="product-info">
+                    <div style="display: flex; justify-content: space-between;">
+                        <h2><%= product.name %></h2>
+                        <h2>$<%= product.price %></h2>
+                    </div>
+                    <p><%= product.description %></p>
+                </div>
+            </div>
+        <% }); %>
+    </div>
 </body>
 </html>

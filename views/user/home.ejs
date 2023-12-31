@@ -13,12 +13,12 @@
     <header>
         <h1>Product List</h1>
         <nav>
-            <div class="" style="display: flex;">
+            <div class="topbar" >
                 <button><a href="">Home</a></button>
                 <button><a href="/user/cart">View Cart</a></button>
                 <button><a href="">Categories</a></button>
             </div>
-            <div class=""  style="display: flex;">
+            <div class="topbar">
                 <button><a href="/user/logout">Logout</a></button>
                 <!-- <button><a href="/user/profile"><i class="fa-solid fa-user-tie"></i></a></button> -->
                 <button><a href="/user/showProfile"><i class="fa-solid fa-user-tie"></i></a></button>
@@ -26,7 +26,7 @@
         </nav>
     </header>
     
-    <div style="display: flex; flex-wrap: wrap; justify-content: center;">
+    <div class="pddetails">
         <%if(products.length === 0 ) {%>
             <h1>CURRENTLY PRODUCTS NOT AVAILABLE</h1>
             <%}%>
@@ -48,6 +48,6 @@
         <% }); %>
     </div>
 
-    <script src="/public/javascript/cart.js"></script>
+    <script src="/public/javascript/home.js"></script>
 </body>
 </html>

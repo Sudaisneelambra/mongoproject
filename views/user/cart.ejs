@@ -34,11 +34,13 @@
                     <p>Quantity: <%=product.totalQuantity %></p>
                     <p>Total of this product : <%= itemTotal.toFixed(2) %></p>
                 </div>
-               <div class="" style="display: flex; width: 300px; justify-content: space-around;">
-                    <form action="/user/decrease" method="post">
-                        <input type="hidden" name="productId" value="<%= product._id %>">
-                        <button type="submit">Decrease Quantity</button>
-                    </form>
+               <div class="fm">
+                    <% if(product.totalQuantity>1) { %>
+                        <form action="/user/decrease" method="post">
+                            <input type="hidden" name="productId" value="<%= product._id %>">
+                            <button type="submit">Decrease Quantity</button>
+                        </form>
+                       <% } %> 
                     <form action="/user/delete" method="post">
                         <input type="hidden" id="inp" name="productId" value="<%= product._id %>">
                         <button type="submit" onclick="conformation(event)">Delete</button>
@@ -57,22 +59,6 @@
 
 
 
-    <script>
-        function conformation(b) {
-            b.preventDefault()
-            var inp = document.getElementById('inp').value;
-            console.log(inp);
-            var userConfirmed = confirm('Do you sure to delete this product in cart');
-            if(userConfirmed)
-            {
-                fetch('/user/delete',{method:"post",body:JSON.stringify({inp}),headers:{'Content-Type': 'application/json'}})
-                .then((e)=>e.json())
-                .then((data)=>{
-                    location.href=data.url
-                })
-            }
-          
-        }
-    </script>
+    <script src="/public/javascript/cart.js"></script>
 </body>
 </html>

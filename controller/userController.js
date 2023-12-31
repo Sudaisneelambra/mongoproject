@@ -46,19 +46,40 @@ module.exports = {
       res.render("user/login");
     }
   },
-  getShowProfile:(req,res)=>{
-    
-      res.render("user/showProfile")
-  },
-  getProfile: async (req, res) => {
+  getShowProfile:async(req,res)=>{
+
+   if(req.session.name)
+   {
+    console.log(req.session.name);
     const sin = req.session.userId;
     let love = await users.aggregate([{$match:{_id: new mongoose.Types.ObjectId(sin)}},{$lookup:{from:"profiles",localField:"_id",foreignField:"userD",as:"fulldetails"}}])
+      res.render("user/showProfile",{love})
+   }
+   else{
+    res.redirect("/user/login");
+   }
+
+  },
+  getCart:(req,res)=>{
+      res.render('user/cart')
+  },
+
+  getProfile: async (req, res) => {
+    if(req.session.name)
+    {
+      const sin = req.session.userId;
+      let love = await users.aggregate([{$match:{_id: new mongoose.Types.ObjectId(sin)}},{$lookup:{from:"profiles",localField:"_id",foreignField:"userD",as:"fulldetails"}}])
+      res.render("user/profile",{love});
+    }
+    else{
+      res.redirect("/user/login");
+    }
 
     // const result = await profileModel.insert({place, age, details, _id})
     // userModel.updateOne({_id: sin}, {$set: {profileId: result._id}})
 
 
-    res.render("user/profile",{love});
+  
   },
   getLogout: (req, res) => {
     req.session.destroy((error) => {

@@ -20,7 +20,8 @@
             </div>
             <div class=""  style="display: flex;">
                 <button><a href="/user/logout">Logout</a></button>
-                <button><a href="/user/profile"><i class="fa-solid fa-user-tie"></i></a></button>
+                <!-- <button><a href="/user/profile"><i class="fa-solid fa-user-tie"></i></a></button> -->
+                <button><a href="/user/showProfile"><i class="fa-solid fa-user-tie"></i></a></button>
             </div>
         </nav>
     </header>
@@ -30,11 +31,15 @@
             <div class="product-container">
                 <img src="/<%= product.imagePath %>" alt="<%= product.name %> Image">
                 <div class="product-info">
-                    <div style="display: flex; justify-content: space-between;">
+                    <div class="name-price">
                         <h2><%= product.name %></h2>
                         <h2>$<%= product.price %></h2>
                     </div>
                     <p><%= product.description %></p>
+                    <div class="details-cart">
+                        <button>Add to cart</button>
+                        <button>Full details</button>
+                    </div>
                 </div>
             </div>
         <% }); %>

@@ -12,6 +12,8 @@ const{getLogout}=require('../controller/userController')
 const{getProfile}=require('../controller/userController')
 const{postprofileSubmit}=require('../controller/userController')
 const{getShowProfile}=require('../controller/userController')
+const{getCart}=require('../controller/userController')
+
 
 
 router.get('/signup',getSignup)
@@ -20,6 +22,8 @@ router.get('/logout',getLogout)
 router.get('/login',getLogin)
 router.get('/profile',getProfile)
 router.get('/showProfile',getShowProfile)
+router.get('/cart',getCart)
+
 
 
 

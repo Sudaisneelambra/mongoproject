@@ -4,82 +4,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sample Form</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-        }
-
-        form {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        label {
-            display: block;
-            margin-bottom: 8px;
-        }
-
-        input {
-            width: 100%;
-            padding: 8px;
-            margin-bottom: 16px;
-            box-sizing: border-box;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-
-        button {
-            background-color: #4caf50;
-            color: #fff;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background-color: #45a049;
-        }
-    </style>
+    <link rel="stylesheet" href="/public/css/user/profile.css">
 </head>
 <body>
 
-    <form action="/user/profileSubmit" method="post">
+    <div class="main">
+       <%if(love[0].fulldetails[0]) { %>
+        <div class="profile">
+            <img class="profile-picture" src="/public/uploads/default-profile-account-unknown-icon-black-silhouette-free-vector.jpg" alt="Profile Picture">
+            <h1>Edit the profile</h1>
+       </div>
+        <%} else {%>
+           <div class="profile">
+                <img class="profile-picture" src="/public/uploads/default-profile-account-unknown-icon-black-silhouette-free-vector.jpg" alt="Profile Picture">
+                <h1>Add the Profile</h1>
+           </div>
+        <%}%>
+        <form action="/user/profileSubmit" method="post">
 
-        <label for="name">Email:</label>
-        <input type="text" id="email" name="mail" required value="<%= love[0]?.mail %>">
+            <label for="name">Email:</label> 
+            <input type="text" id="email" name="mail" required value="<%= love[0]?.mail %>" onclick="showConfirmation()">
+    
+            <label for="name"> User Name:</label>
+            <input type="text" id="name" name="name" required value="<%= love[0]?.fulldetails[0]?.name %>" >
+    
+            <label for="address">Address:</label>
+            <input type="text" id="address" name="address" required value="<%= love[0]?.fulldetails[0]?.adrees %>">
+    
+            <label for="place">Place:</label>
+            <input type="text" id="place" name="place" required value="<%= love[0]?.fulldetails[0]?.place %>">
+    
+            <label for="phone">Phone:</label>
+            <input type="tel" id="phone" name="phone" pattern="[0-9]+" required value="<%= love[0]?.fulldetails[0]?.phone %>">
+    
+            <label for="district">District:</label>
+            <input type="text" id="district" name="district" required value="<%= love[0]?.fulldetails[0]?.district %>">
+    
+            <label for="state">State:</label>
+            <input type="text" id="state" name="state" required value="<%= love[0]?.fulldetails[0]?.state %>">
+    
+            <button type="submit">Submit</button>
+            <button><a href="/user/home">back to home</a></button>
+    
+        </form>
+    </div>
 
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name" required value="<%= love[0]?.fulldetails[0]?.name %>">
 
-        <label for="address">Address:</label>
-        <input type="text" id="address" name="address" required value="<%= love[0]?.fulldetails[0]?.adrees %>">
 
-        <label for="place">Place:</label>
-        <input type="text" id="place" name="place" required value="<%= love[0]?.fulldetails[0]?.place %>">
-
-        <label for="phone">Phone:</label>
-        <input type="tel" id="phone" name="phone" pattern="[0-9]+" required value="<%= love[0]?.fulldetails[0]?.phone %>">
-
-        <label for="district">District:</label>
-        <input type="text" id="district" name="district" required value="<%= love[0]?.fulldetails[0]?.district %>">
-
-        <label for="state">State:</label>
-        <input type="text" id="state" name="state" required value="<%= love[0]?.fulldetails[0]?.state %>">
-
-        <button type="submit">Submit</button>
-        <button><a href="/user/home">back to home</a></button>
-
-    </form>
-
+    <script>
+        function showConfirmation() {
+            var emailInput = document.getElementById('email');
+            var userConfirmed = confirm('Are you sure you want to edit your email? it affect the your login');
+            
+            if (!userConfirmed) {
+                emailInput.blur(); // Remove focus if the user cancels
+            }
+        }
+    </script>
 </body>
 </html>

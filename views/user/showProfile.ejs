@@ -5,54 +5,87 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
     <title>User Profile</title>
-    <style>
-        body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f4f4f4;
-}
-
-.profile-container {
-    max-width: 600px;
-    margin: 50px auto;
-    background-color: #fff;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-}
-
-.profile-picture {
-    width: 100px;
-    height: 100px;
-    height: auto;
-    /* border-bottom: 1px solid #ddd; */
-}
-
-.profile-details {
-    padding: 20px;
-}
-
-h1 {
-    color: #333;
-}
-
-p {
-    color: #666;
-    margin: 8px 0;
-}
-
-    </style>
+    <link rel="stylesheet" href="/public/css/user/showProfile.css">
 </head>
 <body>
     <div class="profile-container">
+       <div class="" style="display: flex; align-items: center;">
         <img class="profile-picture" src="/public/uploads/default-profile-account-unknown-icon-black-silhouette-free-vector.jpg" alt="Profile Picture">
-        <div class="profile-details">
-            <h1>User Name</h1>
-            <p>Email: user@example.com</p>
-            <p>Location: City, Country</p>
-            <p>Occupation: Web Developer</p>
+        <h3><%=love[0]?.mail%></h3>
+       </div>
+       <div class="profile-details">
+        <table>
+            <tr>
+                <td><strong>Username</strong></td>
+                <td>
+                    <% if (love[0].fulldetails[0]?.name) { %>
+                        <%= love[0].fulldetails[0].name %>
+                    <% } else { %>
+                        <span>Username not added</span>
+                    <% } %>
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Address</strong></td>
+                <td>
+                    <% if (love[0].fulldetails[0]?.adrees) { %>
+                        <%= love[0].fulldetails[0].adrees %>
+                    <% } else { %>
+                        <span>Address not added</span>
+                    <% } %>
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Place</strong></td>
+                <td>
+                    <% if (love[0].fulldetails[0]?.place) { %>
+                        <%= love[0].fulldetails[0].place %>
+                    <% } else { %>
+                        <span>Place not added</span>
+                    <% } %>
+                </td>
+            </tr>
+            <tr>
+                <td><strong>Phone</strong></td>
+                <td>
+                    <% if (love[0].fulldetails[0]?.phone) { %>
+                        <%= love[0].fulldetails[0].phone %>
+                    <% } else { %>
+                        <span>Phone Number not added</span>
+                    <% } %>
+                </td>
+            </tr>
+            <tr>
+                <td><strong>District</strong></td>
+                <td>
+                    <% if (love[0].fulldetails[0]?.district) { %>
+                        <%= love[0].fulldetails[0].district %>
+                    <% } else { %>
+                        <span>District not added</span>
+                    <% } %>
+                </td>
+            </tr>
+            <tr>
+                <td><strong>State</strong></td>
+                <td>
+                    <% if (love[0].fulldetails[0]?.state) { %>
+                        <%= love[0].fulldetails[0].state %>
+                    <% } else { %>
+                        <span>State not added</span>
+                    <% } %>
+                </td>
+            </tr>
+        </table>
+        <div class="" style="margin-left: 40px; margin-top: 30px; display: flex; justify-content: space-around;">
+            <% if (love[0].fulldetails[0]) { %>
+                <button class="btns"><a href="/user/profile">Edit Details</a></button>
+            <% } else { %>
+            <button class="btns"><a href="/user/profile">Add Details</a></button>
+            <% } %>
+            <button class="btns"><a href="/user/home"> Back to Home</a></button>
         </div>
+    </div>
+
     </div>
 </body>
 </html>

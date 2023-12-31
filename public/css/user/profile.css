@@ -62,3 +62,6 @@
             align-items: center;
             background-color:white;
         }
+        a{
+            text-decoration: none;
+        }

@@ -1,9 +1,6 @@
-require('dotenv').config();
-const DBU_URL=process.env.DBU_URL
+
 
 const mongoose = require('mongoose');
-const userDB = mongoose.createConnection(DBU_URL);
-
 
 const profileschema = new mongoose.Schema({
     name: {
@@ -36,6 +33,6 @@ const profileschema = new mongoose.Schema({
     }
   });
 
-  const profile = userDB.model('profile', profileschema);
+  const profile = mongoose.model('profile', profileschema);
 
   module.exports=profile

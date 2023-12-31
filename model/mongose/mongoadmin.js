@@ -1,12 +1,9 @@
 
 
-require('dotenv').config();
-
-const DBA_URL=process.env.DBA_URL
 
 const mongoose = require('mongoose');
 
-const productDB = mongoose.createConnection(DBA_URL);
+
 
 const productSchema = new mongoose.Schema({
     name: {
@@ -27,6 +24,6 @@ const productSchema = new mongoose.Schema({
   },
   });
   
-  const Product = productDB.model('Product', productSchema);
+  const Product = mongoose.model('Product', productSchema);
 
   module.exports=Product

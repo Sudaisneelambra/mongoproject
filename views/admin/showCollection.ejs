@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product List</title>
-    <link rel="stylesheet" href="/public/css/user/home.css">
+    <link rel="stylesheet" href="/public/css/admin/showCollections.css">
 </head>
 <body>
    <div class="" style="display: flex; justify-content: space-around; width: 100%; align-items: center;">
@@ -13,19 +13,24 @@
     <button style="height: 30px;"><a href="/admin/addProduct">back to add product</a></button>
    </div>
    <div class="" style="display: flex; flex-wrap: wrap; justify-content: center;">
+    <%if(products.length === 0 ) {%>
+        <h1>CURRENTLY PRODUCTS NOT AVAILABLE</h1>
+        <%}%>
     <% products.forEach(product => { %>
         <div class="product-container">
             <img src="/<%= product.imagePath %>" alt="<%= product.name %> Image">
             <div class="product-info">
-                <div class="" style="display: flex; justify-content: space-between;">
+                <div class="name-price">
                     <h2><%= product.name %></h2>
                     <h2> $ <%= product.price %></h2>
                 </div>
-               <div class="" style="display: flex; justify-content: space-between;">
+              
                 <p><%= product.description %></p>
-                <button><a href="/admin/update/<%= product._id %>">update</a></button>
-                <button><a href="/admin/delete/<%= product._id %>" onclick="confirmDelete(event)">delete</a></button>
-               </div>
+                <div class="details-cart">
+                    <button><a href="/admin/update/<%= product._id %>">update</a></button>
+                    <button><a href="/admin/delete/<%= product._id %>" onclick="confirmDelete(event)">delete</a></button>
+                </div>
+           
             </div>
         </div>
     <% }); %>

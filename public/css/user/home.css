@@ -163,3 +163,14 @@ nav img:hover {
   color: #666;
   margin: 10px 0;
 }
+a{
+    text-decoration: none;
+}
+button {
+    background-color: #757975;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}

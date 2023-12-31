@@ -15,7 +15,7 @@
         <nav>
             <div class="" style="display: flex;">
                 <button><a href="">Home</a></button>
-                <button><a href="">Products</a></button>
+                <button><a href="/user/cart">View Cart</a></button>
                 <button><a href="">Categories</a></button>
             </div>
             <div class=""  style="display: flex;">
@@ -27,6 +27,9 @@
     </header>
     
     <div style="display: flex; flex-wrap: wrap; justify-content: center;">
+        <%if(products.length === 0 ) {%>
+            <h1>CURRENTLY PRODUCTS NOT AVAILABLE</h1>
+            <%}%>
         <% products.forEach(product => { %>
             <div class="product-container">
                 <img src="/<%= product.imagePath %>" alt="<%= product.name %> Image">
@@ -37,12 +40,14 @@
                     </div>
                     <p><%= product.description %></p>
                     <div class="details-cart">
-                        <button>Add to cart</button>
+                        <button onclick="AddToCart(event,'<%= product._id %>')">Add to cart</button>
                         <button>Full details</button>
                     </div>
                 </div>
             </div>
         <% }); %>
     </div>
+
+    <script src="/public/javascript/cart.js"></script>
 </body>
 </html>

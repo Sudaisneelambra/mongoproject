@@ -8,6 +8,8 @@ const sess = process.env.SESSION;
 const users = require("../model/mongose/mongouser");
 const profile = require("../model/mongose/mongoprofile")
 const Product = require("../model/mongose/mongoadmin");
+const Cart =require('../model/mongose/mongoosecart')
+
 const { default: mongoose } = require("mongoose");
 
 module.exports = {
@@ -50,7 +52,6 @@ module.exports = {
 
    if(req.session.name)
    {
-    console.log(req.session.name);
     const sin = req.session.userId;
     let love = await users.aggregate([{$match:{_id: new mongoose.Types.ObjectId(sin)}},{$lookup:{from:"profiles",localField:"_id",foreignField:"userD",as:"fulldetails"}}])
       res.render("user/showProfile",{love})
@@ -60,8 +61,13 @@ module.exports = {
    }
 
   },
-  getCart:(req,res)=>{
-      res.render('user/cart')
+  getCart:async(req,res)=>{
+    const id=req.session.userId
+
+    const cartItems=await Cart.find({USERID:id})
+
+  
+    res.render('user/cart', { cartItems });
   },
 
   getProfile: async (req, res) => {
@@ -143,7 +149,6 @@ module.exports = {
   },
   postprofileSubmit: async (req, res) => {
     const {mail, name, address, place, phone, district, state } = req.body;
-    console.log(req.body);
     const man = req.session.userId;
    
         
@@ -178,4 +183,65 @@ module.exports = {
    
     res.redirect("/user/home");
   },
+  postaddtocart:async(req,res)=>{
+      const userID=req.session.userId
+      const { productId }=req.body
+      const pdct= await Product.findOne({_id:productId})
+
+      const existingCartItem = await Cart.findOne({
+        USERID: userID,
+        PDname: pdct.name,
+      })
+
+      if (existingCartItem) {
+        // If the product already exists, update the quantity
+        existingCartItem.totalQuantity += 1;
+        await existingCartItem.save();
+      } else {
+        // If the product is not in the cart, add a new entry
+        await Cart.create({
+          PDname: pdct.name,
+          PDdiscription: pdct.description,
+          PDprice: pdct.price,
+          imagePath: pdct.imagePath,
+          USERID: userID,
+          totalQuantity: 1, // Set initial quantity to 1
+        });
+      }
+      res.send({ success: true });
+
+  },
+  decreasequntity:async(req,res)=>{
+    console.log(req.body);
+    const {productId}=req.body
+    const exist=await Cart.findOne({_id:productId})
+    console.log(exist);
+    if(exist)
+    {
+      if(exist.totalQuantity>1){
+        console.log("anu");
+        exist.totalQuantity-=1
+        await exist.save()
+      }
+      else{
+        console.log("sudais");
+        await exist.deleteOne({});
+      }
+    }
+  res.redirect('/user/cart')
+  },
+  deletequantity:async(req,res)=>{
+    
+    const {inp}=req.body
+      const exist= await Cart.findOne({_id:inp})
+      console.log(exist);
+
+      if(exist)
+      {
+        await exist.deleteOne({});
+      }
+
+    res.send({url:'/user/cart'})
+
+  }
 };

@@ -3,6 +3,16 @@ const express=require("express")
 const path=require('path')
 // requiring dotenv
 require('dotenv').config();
+
+
+const mongoose = require('mongoose')
+
+const DBU_URL=process.env.DBU_URL
+
+mongoose.connect(DBU_URL)
+
+
+
 const nocache = require("nocache");
 // requiring routes
 const useroutes=require('./routes/userRouts')

@@ -13,7 +13,9 @@ const{getProfile}=require('../controller/userController')
 const{postprofileSubmit}=require('../controller/userController')
 const{getShowProfile}=require('../controller/userController')
 const{getCart}=require('../controller/userController')
-
+const{postaddtocart}=require('../controller/userController')
+const{decreasequntity}=require('../controller/userController')
+const{deletequantity}=require('../controller/userController')
 
 
 router.get('/signup',getSignup)
@@ -31,6 +33,12 @@ router.get('/cart',getCart)
 router.post('/signup',postSignup)
 router.post('/login',postLogin)
 router.post('/profileSubmit',postprofileSubmit)
+router.post('/AddToCart',postaddtocart)
+router.post('/decrease',decreasequntity)
+router.post('/delete',deletequantity)
+
+
+
 
 
 

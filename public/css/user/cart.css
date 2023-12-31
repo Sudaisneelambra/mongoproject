@@ -13,10 +13,14 @@ body {
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .cart-header {
     background-color: #333;
+    width: 100% ;
     color: #fff;
     padding: 10px;
     text-align: center;
@@ -73,4 +77,12 @@ body {
 
 .cart-actions button:hover {
     background-color: #2980b9;
+}
+button {
+    background-color: #757975;
+    color: #fff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }

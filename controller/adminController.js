@@ -45,7 +45,6 @@ module.exports = {
       await newProduct.save();
       res.redirect("/admin/show");
     } catch (error) {
-      console.error(error);
       res.status(500).send("Internal Server Error");
     }
   },
@@ -94,7 +93,6 @@ module.exports = {
     
       res.redirect("/admin/show");
     } catch (error) {
-      console.error(error);
       res.status(500).send("Internal Server Error");
     }
   },

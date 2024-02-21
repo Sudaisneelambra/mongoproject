@@ -1,7 +1,6 @@
 function conformation(b) {
     b.preventDefault()
     var inp = document.getElementById('inp').value;
-    console.log(inp);
     var userConfirmed = confirm('Do you sure to delete this product in cart');
     if(userConfirmed)
     {

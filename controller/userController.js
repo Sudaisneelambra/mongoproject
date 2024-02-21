@@ -26,20 +26,11 @@ module.exports = {
         const products = await Product.find();
         res.render("user/home", { products });
       } catch (error) {
-        console.error(error);
         res.status(500).send("Internal Server Error");
       }
     } else {
       res.redirect("/user/login");
     }
-
-    // if(req.session.name)
-    // {
-    //     res.render('user/home')
-    // }
-    // else{
-    //     res.redirect('/user/login')
-    // }
   },
   getLogin: (req, res) => {
     if (req.session.name) {
@@ -62,12 +53,19 @@ module.exports = {
 
   },
   getCart:async(req,res)=>{
+    if(req.session.name)
+    {
     const id=req.session.userId
 
     const cartItems=await Cart.find({USERID:id})
 
   
     res.render('user/cart', { cartItems });
+    }
+    else{
+      res.redirect("/user/login");
+
+    }
   },
 
   getProfile: async (req, res) => {
@@ -80,9 +78,6 @@ module.exports = {
     else{
       res.redirect("/user/login");
     }
-
-    // const result = await profileModel.insert({place, age, details, _id})
-    // userModel.updateOne({_id: sin}, {$set: {profileId: result._id}})
 
 
   
@@ -103,7 +98,6 @@ module.exports = {
 
     const existingUser = await users.findOne({ mail });
     if (existingUser) {
-      console.error("Duplicate email address. Please use a different email.");
       res.send({ status: false, message: "User already exist.please login" }); // Redirect back to the signup page with an error message
     } else {
       try {
@@ -114,13 +108,10 @@ module.exports = {
 
         req.session.userId = newUser._id;
         await newUser.save();
-        console.log("User saved successfully!");
-        // Redirect to a new page
         req.session.name = sess;
 
         res.send({ status: true, url: "/user/home" });
       } catch (error) {
-        console.error("Error saving user:", error);
         res.send({ status: false, message: "uncatched error." });
       }
     }
@@ -212,19 +203,15 @@ module.exports = {
 
   },
   decreasequntity:async(req,res)=>{
-    console.log(req.body);
     const {productId}=req.body
     const exist=await Cart.findOne({_id:productId})
-    console.log(exist);
     if(exist)
     {
       if(exist.totalQuantity>1){
-        console.log("anu");
         exist.totalQuantity-=1
         await exist.save()
       }
       else{
-        console.log("sudais");
         await exist.deleteOne({});
       }
     }
@@ -234,7 +221,6 @@ module.exports = {
     
     const {inp}=req.body
       const exist= await Cart.findOne({_id:inp})
-      console.log(exist);
 
       if(exist)
       {
